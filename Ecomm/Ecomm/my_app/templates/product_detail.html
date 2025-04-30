@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container my-5">
+    <div class="row g-4">
+        <!-- Product Image -->
+        <div class="col-md-6">
+            <div class="card shadow-sm rounded-4 overflow-hidden">
+                <img src="{{ product.image.url }}" class="img-fluid" style="max-height: 500px; object-fit: cover;" alt="{{ product.name }}">
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-md-6">
+            <div class="card shadow-sm rounded-4 p-4 h-100">
+                <h2 class="mb-3">{{ product.name }}</h2>
+                <p class="text-muted">{{ product.desc }}</p>
+                <p><strong>Price:</strong> <span class="text-success h5">${{ product.price }}</span></p>
+                <p><strong>Stock:</strong> <span class="text-danger">{{ product.stock }}</span></p>
+                <p><strong>Category:</strong> {{ product.cat }}</p>
+                <p><strong>Uploaded on:</strong> {{ product.upload_date }}</p>
+                <div class="d-flex gap-2 mt-4">
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success">Add to Cart</a>
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Form -->
+    <div class="card shadow-sm rounded-4 mt-5 p-4">
+        <h4 class="mb-4">Leave a Review</h4>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <textarea name="comment" class="form-control" rows="4" placeholder="Write your review here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+    </div>
+
+    <!-- Display Reviews -->
+    <div class="mt-5">
+        <h4 class="mb-3">Customer Reviews</h4>
+        {% for review in reviews %}
+            <div class="border-bottom pb-3 mb-3">
+                <div class="d-flex justify-content-between">
+                    <strong>{{ review.name }}</strong>
+                    <small class="text-muted">{{ review.created_at }}</small>
+                </div>
+                <p class="mt-2">{{ review.comment }}</p>
+            </div>
+        {% empty %}
+            <p class="text-muted">No reviews yet. Be the first to write one!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

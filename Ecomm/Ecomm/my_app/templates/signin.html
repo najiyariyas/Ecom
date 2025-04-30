@@ -1,0 +1,110 @@
+{% extends 'index.html' %}
+{% block content %}
+<style>
+    .container {
+       
+        max-width: 550px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #eaa749b0;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .form-input:focus {
+        border-color: #5b9bd5;
+        outline: none;
+    }
+
+    .form-button {
+        background-color: #13adef;
+        color: white;
+        padding: 14px 14px; /* Reduced padding for smaller button */
+        margin: 10px 0;
+        border: none;
+        border-radius: 4px;
+        width: 100px;
+        cursor: pointer;
+        font-size: 14px; /* Reduced font size */
+    }
+
+    .form-button:hover {
+        background-color: #91c0f5;
+    }
+
+    .cancelbtn {
+      
+        background-color: #13adef;
+        color: white;
+        padding: 14px 14px; /* Reduced padding for smaller button */
+        margin: 30px 0;
+        border: none;
+        border-radius: 8px;
+        width: 100px;
+        cursor: pointer;
+        font-size: 14px; /* Reduced font size */
+    }
+
+    .cancelbtn:hover {
+        background-color: #91c0f5;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .clearfix {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+   .page { 
+    background-color: gray;
+   }
+
+</style>
+<div class="page">
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
+<form action="" method="post" style="border:1px solid #ccc" >
+    {% csrf_token %}
+    <div class="container">
+        <h1>Sign in</h1>
+        
+        <hr>
+
+        <label for="username" class="form-label"><b>Username</b></label>
+        <input type="text" id="Username"placeholder="Enter username" name="uname" class="form-input" required>
+
+        <label for="psw" class="form-label"><b>Password</b></label>
+        <input type="password"id="pwd"  placeholder="Enter Password" name="pswd" class="form-input" required>
+        <div class="clearfix">
+            <button type="button" class="cancelbtn">Cancel</button>
+            <button type="submit" class="form-button">Sign in</button>
+        </div>
+    </div>
+</form>
+</div>
+{% endblock %}
