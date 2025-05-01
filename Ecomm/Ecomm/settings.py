@@ -129,8 +129,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 
-# MEDIA_URL= 'media/'
-# MEDIA_ROOT=os.path.join(BASE_DIR,'media') 
+MEDIA_URL= '/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media') 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -140,4 +140,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'najiya18@gmail.com'
 EMAIL_HOST_PASSWORD = 'kjevdjpfqwrjbujr'
+
+
 

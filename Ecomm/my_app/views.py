@@ -87,7 +87,7 @@ def signin(request):
 def signout(request):
     logout(request)
     return render(request,'index.html')
-def add_to_cart(request, product_id):
+def add_to_cart(request, product_id: int):
     product = get_object_or_404(Product, pk=product_id)
     cart_item, created = Cart.objects.get_or_create(user=request.user, product=product)
     if not created:

@@ -3,7 +3,7 @@
 <div class="container mt-4">
     <div class="container mt-4">
         <div class="mb-3">
-            <form action="search" method="post" class="d-flex align-items-center gap-2">
+            <form action="{% url 'search' %}" method="post" class="d-flex align-items-center gap-2">
                 {% csrf_token %}
                 <input type="text" name="pname" class="form-control w-50" placeholder="Enter the product to search">
                 <input type="submit" value="Search" class="btn btn-primary">
@@ -40,7 +40,11 @@
                     <td class="text-danger">{{ i.stock }}</td>
                     <td>
                         <a href="{% url 'product_detail' i.id %}">
+                            {% if i.image %}
                             <img src="{{ i.image.url }}" class="img-thumbnail" style="height: 100px; width: 100px; object-fit: cover;">
+                            {% else %}
+                            <span>No Image</span>
+                            {% endif %}
                         </a>
                     </td>
                     <td class="text-muted">{{ i.upload_date }}</td>
@@ -48,7 +52,8 @@
                     <td><a href="edit/{{i.id}}" class="btn btn-primary">Edit</a></td>
                     <td><a href="delete/{{i.id}}" class="btn btn-primary">Delete</a></td>
                     <td>
-                        <a href="{% url 'add_to_cart' i.id %}" class="btn btn-success">Add to Cart</a>
+                        <a href="{% url 'add_to_cart' product_id=i.id %}" class="btn btn-success">Add to Cart</a>
+
                     </td>
                 </tr>
                 {% endfor %}
