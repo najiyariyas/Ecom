@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from my_app.form import ProductForm
-from my_app.models import Cart, Product
+from my_app.models import Cart, Product,Category
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import render, redirect, get_object_or_404
@@ -10,6 +10,11 @@ from django.urls import path
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Product, Review
+
+
+from django.core.cache import cache
+from django.http import JsonResponse
+# Create your views here.
 
 
 
@@ -138,4 +143,28 @@ def product_detail(request, product_id):
     return render(request, 'product_detail.html', {
         'product': product,
         'reviews': reviews
+    })
+
+
+def cache_product_view(request):
+    product_names = []
+    database = None
+
+    if cache.get('Product'):
+        product_names = cache.get('Product')
+        database = "redis"
+    else:
+        products = Product.objects.all()
+        product_names = [p.name for p in products]
+        database = "sqlite3"
+        cache.set('Product', product_names)
+
+
+    products = Product.objects.filter(name__in=product_names)
+    categories = Category.objects.all()
+
+    return render(request, 'favourites.html', {
+        'Products': products,
+        'categories': categories,
+        'DB': database 
     })

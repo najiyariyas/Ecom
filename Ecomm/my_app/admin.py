@@ -6,3 +6,4 @@ admin.site.register(Orders)
 admin.site.register(BestSellers)
 admin.site.register(NewRelease)
 
+
